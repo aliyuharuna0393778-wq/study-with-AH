@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - My Results</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% include '_student_header.html' %}
+
+  <h1 class="page-title">My Results / Grades</h1>
+
+  {% if results %}
+  <table class="students">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Score</th>
+        <th>Grade</th>
+        <th>Semester</th>
+        <th>Posted</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in results %}
+      <tr>
+        <td>{{ r.course_title }}</td>
+        <td>{{ r.score or '—' }}</td>
+        <td>{{ r.grade or '—' }}</td>
+        <td>{{ r.semester or '—' }}</td>
+        <td>{{ r.created_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-note">No results posted for you yet.</div>
+  {% endif %}
+
+{% include '_student_footer.html' %}
+</body>
+</html>

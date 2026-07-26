@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% include '_student_header.html' %}
+
+  <h1 class="page-title">Dashboard</h1>
+
+  {% if announcements %}
+  <div class="alert-banner">
+    📌 <a href="{{ url_for('notice_board') }}">{{ announcements[0].title }}</a> — check the Notice Board for details.
+  </div>
+  {% endif %}
+
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="stat-label">Status</div>
+      <div class="stat-value">Active</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Results Posted</div>
+      <div class="stat-value">{{ result_count }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Assignments</div>
+      <div class="stat-value">{{ assignment_count }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Lessons Available</div>
+      <div class="stat-value">{{ lesson_count }}</div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <a class="feature-card" href="{{ url_for('notice_board') }}">
+      <div class="fc-icon">📌</div>
+      <div>
+        <div class="fc-title">Notice Board</div>
+        <div class="fc-desc">School announcements and notices</div>
+      </div>
+    </a>
+    <a class="feature-card" href="{{ url_for('student_results') }}">
+      <div class="fc-icon">📊</div>
+      <div>
+        <div class="fc-title">Results & Grades</div>
+        <div class="fc-desc">Check your posted scores and grades</div>
+      </div>
+    </a>
+    <a class="feature-card" href="{{ url_for('student_lessons') }}">
+      <div class="fc-icon">🎓</div>
+      <div>
+        <div class="fc-title">E-Learning</div>
+        <div class="fc-desc">Lesson links and video content</div>
+      </div>
+    </a>
+    <a class="feature-card" href="{{ url_for('student_assignments') }}">
+      <div class="fc-icon">📝</div>
+      <div>
+        <div class="fc-title">Assignments</div>
+        <div class="fc-desc">View and submit assignments</div>
+      </div>
+    </a>
+    <a class="feature-card" href="{{ url_for('personal_data') }}">
+      <div class="fc-icon">👤</div>
+      <div>
+        <div class="fc-title">Personal Data</div>
+        <div class="fc-desc">View your registered details</div>
+      </div>
+    </a>
+    <a class="feature-card" href="{{ url_for('portal_help') }}">
+      <div class="fc-icon">❓</div>
+      <div>
+        <div class="fc-title">Portal Help</div>
+        <div class="fc-desc">How to use this portal</div>
+      </div>
+    </a>
+  </div>
+
+{% include '_student_footer.html' %}
+  <div class="site-credit" style="margin-top:0; padding:14px 0; background:var(--navy);">Developed by Aliyu Bn Haroon</div>
+</body>
+</html>

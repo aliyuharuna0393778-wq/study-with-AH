@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Submissions</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin</h1>
+      <a href="{{ url_for('admin_logout') }}">Sign out</a>
+    </div>
+
+    <div class="admin-nav">
+      <a href="{{ url_for('admin_students') }}">Students</a>
+      <a href="{{ url_for('admin_announcements') }}">Announcements</a>
+      <a href="{{ url_for('admin_lessons') }}">Lesson Links</a>
+      <a href="{{ url_for('admin_results') }}">Results</a>
+      <a class="active" href="{{ url_for('admin_assignments') }}">Assignments</a>
+      <a href="{{ url_for('admin_admins') }}">Admins</a>
+      <a href="{{ url_for('admin_profile') }}">My Profile</a>
+      <a href="{{ url_for('admin_login_log') }}">Login Log</a>
+      <a href="{{ url_for('admin_restore') }}">Backup & Restore</a>
+    </div>
+
+    <div class="panel">
+      <h2>Submissions for: {{ assignment.title }}</h2>
+      <p style="font-size:12.5px; color:var(--muted); margin-top:-10px;"><a href="{{ url_for('admin_assignments') }}">← Back to Assignments</a></p>
+
+      {% if submissions %}
+      <div class="item-list">
+        {% for s in submissions %}
+        <div class="item-card">
+          <div class="item-title">{{ s.full_name or s.student_id }} ({{ s.student_id }})</div>
+          <div class="item-meta">Submitted {{ s.submitted_at }}</div>
+          <div class="item-body">{{ s.submission_text }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-note">No submissions yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

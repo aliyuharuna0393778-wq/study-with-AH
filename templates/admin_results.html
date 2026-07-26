@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Results</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin</h1>
+      <a href="{{ url_for('admin_logout') }}">Sign out</a>
+    </div>
+
+    <div class="admin-nav">
+      <a href="{{ url_for('admin_students') }}">Students</a>
+      <a href="{{ url_for('admin_announcements') }}">Announcements</a>
+      <a href="{{ url_for('admin_lessons') }}">Lesson Links</a>
+      <a class="active" href="{{ url_for('admin_results') }}">Results</a>
+      <a href="{{ url_for('admin_assignments') }}">Assignments</a>
+      <a href="{{ url_for('admin_admins') }}">Admins</a>
+      <a href="{{ url_for('admin_profile') }}">My Profile</a>
+      <a href="{{ url_for('admin_login_log') }}">Login Log</a>
+      <a href="{{ url_for('admin_restore') }}">Backup & Restore</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="panel">
+      <h2>Add a Result</h2>
+      <form method="POST" action="{{ url_for('admin_results') }}">
+        <div class="field">
+          <label for="student_id">Student ID / Matric Number</label>
+          <input type="text" id="student_id" name="student_id" placeholder="e.g. PSC/2025/41127" required>
+        </div>
+        <div class="field">
+          <label for="course_title">Course</label>
+          <input type="text" id="course_title" name="course_title" placeholder="e.g. PHY 301" required>
+        </div>
+        <div class="field">
+          <label for="score">Score</label>
+          <input type="text" id="score" name="score" placeholder="e.g. 78">
+        </div>
+        <div class="field">
+          <label for="grade">Grade</label>
+          <input type="text" id="grade" name="grade" placeholder="e.g. A">
+        </div>
+        <div class="field">
+          <label for="semester">Semester</label>
+          <input type="text" id="semester" name="semester" placeholder="e.g. First Semester 2025/2026">
+        </div>
+        <button type="submit" class="submit">Add Result</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>All Results ({{ results|length }})</h2>
+      {% if results %}
+      <table class="students">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Course</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Semester</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in results %}
+          <tr>
+            <td>{{ r.student_id }}</td>
+            <td>{{ r.course_title }}</td>
+            <td>{{ r.score or '—' }}</td>
+            <td>{{ r.grade or '—' }}</td>
+            <td>{{ r.semester or '—' }}</td>
+            <td><a class="row-action danger" href="{{ url_for('admin_delete_result', item_id=r.id) }}" onclick="return confirm('Delete this result?');">Delete</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-note">No results added yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

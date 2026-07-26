@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Portal Help</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% include '_student_header.html' %}
+
+  <h1 class="page-title">Portal Help</h1>
+
+  <div class="item-list">
+    <div class="item-card">
+      <div class="item-title">Signing in</div>
+      <div class="item-body">Use your matric number or phone number, together with your password, on the sign-in page.</div>
+    </div>
+    <div class="item-card">
+      <div class="item-title">Forgot your password?</div>
+      <div class="item-body">Tap "Forgot password?" on the sign-in page. You'll need your matric number and the phone number you registered with.</div>
+    </div>
+    <div class="item-card">
+      <div class="item-title">Notice Board</div>
+      <div class="item-body">Check here regularly for announcements from the school.</div>
+    </div>
+    <div class="item-card">
+      <div class="item-title">Results & Grades</div>
+      <div class="item-body">Once results are posted for you, they'll appear here automatically.</div>
+    </div>
+    <div class="item-card">
+      <div class="item-title">Assignments</div>
+      <div class="item-body">You can submit either written text or a link (e.g. to a document) as your answer.</div>
+    </div>
+    <div class="item-card">
+      <div class="item-title">Still stuck?</div>
+      <div class="item-body">Reach out through the <a class="item-link" href="{{ url_for('contact') }}">Contact page</a>.</div>
+    </div>
+  </div>
+
+{% include '_student_footer.html' %}
+</body>
+</html>

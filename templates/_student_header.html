@@ -1,0 +1,27 @@
+<div class="portal-header">
+  <div class="brand">
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="{{ school_initials }}">
+    <span class="brand-name">{{ school_name }}</span>
+  </div>
+  <button class="menu-toggle" onclick="document.getElementById('portalSidebar').classList.toggle('open'); document.getElementById('sidebarBackdrop').classList.toggle('open');">☰ Menu</button>
+  <div class="who">
+    {{ full_name }} ({{ student_id }})
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</div>
+
+<div class="portal-body">
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="document.getElementById('portalSidebar').classList.remove('open'); this.classList.remove('open');"></div>
+  <div class="portal-sidebar" id="portalSidebar">
+    <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active_page == 'dashboard' else '' }}"><span class="ic">🏠</span> Dashboard</a>
+    <a href="{{ url_for('notice_board') }}" class="{{ 'active' if active_page == 'notices' else '' }}"><span class="ic">📌</span> Notice Board</a>
+    <a href="{{ url_for('student_results') }}" class="{{ 'active' if active_page == 'results' else '' }}"><span class="ic">📊</span> My Results</a>
+    <a href="{{ url_for('student_lessons') }}" class="{{ 'active' if active_page == 'lessons' else '' }}"><span class="ic">🎓</span> E-Learning</a>
+    <a href="{{ url_for('student_assignments') }}" class="{{ 'active' if active_page == 'assignments' else '' }}"><span class="ic">📝</span> Assignments</a>
+    <a href="{{ url_for('personal_data') }}" class="{{ 'active' if active_page == 'personal' else '' }}"><span class="ic">👤</span> My Personal Data</a>
+    <div class="sidebar-section">Support</div>
+    <a href="{{ url_for('portal_help') }}" class="{{ 'active' if active_page == 'help' else '' }}"><span class="ic">❓</span> Portal Help</a>
+    <a href="{{ url_for('contact') }}" class="{{ 'active' if active_page == 'contact' else '' }}"><span class="ic">☎️</span> Contact</a>
+  </div>
+
+  <div class="portal-main">

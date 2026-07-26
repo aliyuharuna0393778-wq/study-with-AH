@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Notice Board</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% include '_student_header.html' %}
+
+  <h1 class="page-title">Notice Board</h1>
+
+  {% if announcements %}
+  <div class="item-list">
+    {% for a in announcements %}
+    <div class="item-card">
+      <div class="item-title">{{ a.title }}</div>
+      <div class="item-meta">{{ a.created_at }}</div>
+      <div class="item-body">{{ a.body }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-note">No announcements posted yet.</div>
+  {% endif %}
+
+{% include '_student_footer.html' %}
+</body>
+</html>

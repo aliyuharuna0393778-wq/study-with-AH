@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Contact</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="card">
+    <div class="seal"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="{{ school_initials }}"></div>
+    <h1>Contact</h1>
+    <p class="sub">Need help? Reach out through any of these</p>
+
+    <div class="item-list">
+      <div class="item-card">
+        <div class="item-title">Phone</div>
+        <div class="item-body">
+          <a class="item-link" href="tel:09036656107">09036656107</a><br>
+          <a class="item-link" href="tel:08086542017">08086542017</a>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <div class="item-title">Email</div>
+        <div class="item-body">
+          <a class="item-link" href="mailto:aliyuharuna0393778@gmail.com">aliyuharuna0393778@gmail.com</a><br>
+          <a class="item-link" href="mailto:aliyuharuna0903665@gmail.com">aliyuharuna0903665@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note" style="margin-top:24px;"><a href="{{ url_for('login') }}">Back to sign in</a></p>
+  </div>
+</body>
+</html>

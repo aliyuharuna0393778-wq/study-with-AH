@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Announcements</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin</h1>
+      <a href="{{ url_for('admin_logout') }}">Sign out</a>
+    </div>
+
+    <div class="admin-nav">
+      <a href="{{ url_for('admin_students') }}">Students</a>
+      <a class="active" href="{{ url_for('admin_announcements') }}">Announcements</a>
+      <a href="{{ url_for('admin_lessons') }}">Lesson Links</a>
+      <a href="{{ url_for('admin_results') }}">Results</a>
+      <a href="{{ url_for('admin_assignments') }}">Assignments</a>
+      <a href="{{ url_for('admin_admins') }}">Admins</a>
+      <a href="{{ url_for('admin_profile') }}">My Profile</a>
+      <a href="{{ url_for('admin_login_log') }}">Login Log</a>
+      <a href="{{ url_for('admin_restore') }}">Backup & Restore</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="panel">
+      <h2>Post a New Announcement</h2>
+      <form method="POST" action="{{ url_for('admin_announcements') }}">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="e.g. Exam timetable released" required>
+        </div>
+        <div class="field">
+          <label for="body">Message</label>
+          <textarea id="body" name="body" placeholder="Write the announcement..." required></textarea>
+        </div>
+        <button type="submit" class="submit">Post Announcement</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>All Announcements ({{ announcements|length }})</h2>
+      {% if announcements %}
+      <div class="item-list">
+        {% for a in announcements %}
+        <div class="item-card">
+          <div class="item-title">{{ a.title }}</div>
+          <div class="item-meta">Posted by {{ a.posted_by or 'admin' }} on {{ a.created_at }}</div>
+          <div class="item-body">{{ a.body }}</div>
+          <div class="item-actions">
+            <a href="{{ url_for('admin_delete_announcement', item_id=a.id) }}" onclick="return confirm('Remove this announcement?');">Delete</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-note">No announcements posted yet.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

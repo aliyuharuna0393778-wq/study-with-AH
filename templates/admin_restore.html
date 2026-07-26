@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Backup & Restore</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin</h1>
+      <a href="{{ url_for('admin_logout') }}">Sign out</a>
+    </div>
+
+    <div class="admin-nav">
+      <a href="{{ url_for('admin_students') }}">Students</a>
+      <a href="{{ url_for('admin_announcements') }}">Announcements</a>
+      <a href="{{ url_for('admin_lessons') }}">Lesson Links</a>
+      <a href="{{ url_for('admin_results') }}">Results</a>
+      <a href="{{ url_for('admin_assignments') }}">Assignments</a>
+      <a href="{{ url_for('admin_admins') }}">Admins</a>
+      <a href="{{ url_for('admin_profile') }}">My Profile</a>
+      <a href="{{ url_for('admin_login_log') }}">Login Log</a>
+      <a class="active" href="{{ url_for('admin_restore') }}">Backup & Restore</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="panel">
+      <h2>Download Backup</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin-bottom:14px;">
+        Save a copy of your entire database (students, admins, announcements, lessons) to your phone.
+        Do this regularly so you never lose data.
+      </p>
+      <a class="submit" style="display:inline-block; text-decoration:none; text-align:center;"
+         href="{{ url_for('admin_backup') }}">Download Backup</a>
+    </div>
+
+    <div class="panel">
+      <h2>Restore From Backup</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin-bottom:14px;">
+        Warning: this replaces everything currently in the portal with the contents of the backup file.
+        Only do this if you're sure.
+      </p>
+      <form method="POST" action="{{ url_for('admin_restore') }}" enctype="multipart/form-data" onsubmit="return confirm('This will replace all current data. Continue?');">
+        <div class="field">
+          <label for="backupFile">Backup file (.db)</label>
+          <input type="file" id="backupFile" name="backupFile" accept=".db" required>
+        </div>
+        <button type="submit" class="submit">Restore</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

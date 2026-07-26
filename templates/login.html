@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Sign In</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <form class="card" method="POST" action="{{ url_for('login') }}">
+    <div class="seal"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="{{ school_initials }}"></div>
+    <h1>Student Sign In</h1>
+    <p class="sub">Enter your details to access the student portal</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="field">
+      <label for="identifier">Matric Number or Phone Number</label>
+      <input type="text" id="identifier" name="identifier" placeholder="e.g. U/22/CS/1042 or 08012345678" required>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" required>
+    </div>
+
+    <button type="submit" class="submit">Sign In</button>
+
+    <p class="link-row" style="margin-top:14px;"><a href="{{ url_for('forgot_password') }}">Forgot password?</a></p>
+
+    <div class="divider">New student</div>
+    <p class="footer-note">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    <p class="footer-note" style="margin-top:10px;"><a href="{{ url_for('contact') }}">Need help? Contact us</a></p>
+  </form>
+  <div class="site-credit">Developed by Aliyu Bn Haroon</div>
+</body>
+</html>

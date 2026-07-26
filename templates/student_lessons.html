@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - E-Learning</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% include '_student_header.html' %}
+
+  <h1 class="page-title">E-Learning</h1>
+
+  {% if lessons %}
+  <div class="item-list">
+    {% for l in lessons %}
+    <div class="item-card">
+      <div class="item-title">{{ l.title }}</div>
+      {% if l.description %}<div class="item-body">{{ l.description }}</div>{% endif %}
+      <div class="item-body"><a class="item-link" href="{{ l.url }}" target="_blank" rel="noopener">Open lesson →</a></div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-note">No lessons added yet.</div>
+  {% endif %}
+
+{% include '_student_footer.html' %}
+</body>
+</html>
