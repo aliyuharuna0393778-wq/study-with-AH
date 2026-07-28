@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ school_name }} - Admin Login</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <form class="card" method="POST" action="{{ url_for('admin_login') }}">
+    <div class="seal"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="{{ school_initials }}"></div>
+    <h1>Admin Login</h1>
+    <p class="sub">Staff access only</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="field">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+
+    <button type="submit" class="submit">Sign In</button>
+
+    <p class="footer-note" style="margin-top:20px;"><a href="{{ url_for('login') }}">Back to student sign in</a></p>
+  </form>
+  <div class="site-credit">Developed by Aliyu Bn Haroon</div>
+</body>
+</html>
